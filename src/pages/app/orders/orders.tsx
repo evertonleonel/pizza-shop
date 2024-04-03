@@ -1,15 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
-  TableRow,
 } from "@/components/ui/table";
-import { ArrowRight, Search, X } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import OrderTableFilters from "./order-table-filters";
+import { OrderTableRow } from "./order-table-row";
 
 export const Orders = () => {
   return (
@@ -19,10 +16,7 @@ export const Orders = () => {
         <h1 className="font-bol text-3xl tracking-tight">Pedidos</h1>
       </div>
       <div className="space-y-2.5">
-        <form className="flex items-center gap-2">
-          <span className="text-sm font-semibold">Filtros:</span>
-          <Input placeholder="Nome do cliente" className="h-8 w-[320px]" />
-        </form>
+        <OrderTableFilters />
         <div className="rounded-md border">
           <Table>
             <TableHeader>
@@ -37,46 +31,7 @@ export const Orders = () => {
             </TableHeader>
             <TableBody>
               {Array.from({ length: 10 }).map((_, i) => {
-                return (
-                  <TableRow key={i}>
-                    <TableCell>
-                      <Button variant="outline" size="xs">
-                        <Search className="size-3" />
-                        <span className="sr-only">Detalhes do pedido</span>
-                      </Button>
-                    </TableCell>
-                    <TableCell className="font-mono text-xs font-medium">
-                      132a5sa45s4
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      há 15 minutos
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <span className="h-2 w-2 rounded-full bg-slate-400" />
-                        <span className="font-medium text-muted-foreground">
-                          Pendente
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      Everton Leonel
-                    </TableCell>
-                    <TableCell className="font-medium">R$ 1,99 </TableCell>
-                    <TableCell>
-                      <Button variant={"ghost"} size={"xs"}>
-                        <ArrowRight className="mr-2 size-3" />
-                        Aprovar
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      <Button variant={"ghost"} size={"xs"}>
-                        <X className="mr-2 size-3" />
-                        Cancelar
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
+                return <OrderTableRow key={i} />;
               })}
             </TableBody>
           </Table>
