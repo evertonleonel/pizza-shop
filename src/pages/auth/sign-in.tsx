@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/api/sign-in";
 
@@ -17,11 +17,15 @@ const signInForm = z.object({
 type SigninForm = z.infer<typeof signInForm>;
 
 export function SignIn() {
+  const [searchParams] = useSearchParams();
+
   const {
     handleSubmit,
     register,
     formState: { isSubmitting },
-  } = useForm<SigninForm>();
+  } = useForm<SigninForm>({
+    defaultValues: { email: searchParams.get("email") ?? "" },
+  });
 
   // mutação é qualquer ação que não é uma ação de listagem / retorno
   // todo post, put e delete é uma mutação
