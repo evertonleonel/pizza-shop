@@ -41,6 +41,7 @@ export const AccountMenu = () => {
     onSuccess: () => {
       navigate("/sign-in", { replace: true });
     },
+    //replace vai substituir a rota atual ao invés de enviar para uma nova rota
   });
 
   return (
