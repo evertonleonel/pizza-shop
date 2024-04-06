@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "@/api/sign-in";
 
 const signInForm = z.object({
   email: z.string().email(),
@@ -21,9 +23,17 @@ export function SignIn() {
     formState: { isSubmitting },
   } = useForm<SigninForm>();
 
+  // mutação é qualquer ação que não é uma ação de listagem / retorno
+  // todo post, put e delete é uma mutação
+  // todo get é uma query
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  });
+
   async function handleSignIn(data: SigninForm) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await authenticate({ email: data.email });
+
       toast.success("Enviamos um link de autenticação para seu e-mail.", {
         action: {
           label: "Reenviar",
@@ -55,7 +65,7 @@ export function SignIn() {
           >
             <div className="space-y-2">
               <Label htmlFor="email">Seu e-mail</Label>
-              <Input id="email" type="email" />
+              <Input id="email" type="email" {...register("email")} />
             </div>
             <Button disabled={isSubmitting} className="w-full">
               Acessar painel
