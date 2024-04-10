@@ -1,6 +1,5 @@
 import { HttpResponse, http } from "msw";
-import { GetOrdersResponse } from "../get-orders";
-import { stat } from "fs";
+import type { GetOrdersResponse } from "../get-orders";
 
 type Orders = GetOrdersResponse["orders"];
 
